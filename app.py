@@ -25,7 +25,7 @@ def chat():
     response = client.models.generate_content(
         model="gemini-2.5-flash", contents=prompt
     )
-    return jsonify({"response": response.candidates[0].content})
+    return jsonify({"response": response})
 
 if __name__ == "__main__":
     app.run(debug=True)
