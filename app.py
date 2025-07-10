@@ -11,7 +11,7 @@ load_dotenv() #loads the environment variables from .env file
 app = Flask(__name__) #_name_ tells flask that it is the main module
 CORS(app) # Enable CORS for all routes
 
-client = genai.Client(api_key="AIzaSyBFuSbE_SW9hqrbAaKiUyGAXjPA5sm2H_s")
+client = genai.Client(api_key= os.getenv("GEMINI_API_KEY")) 
 
 
 @app.route("/")
