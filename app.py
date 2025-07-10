@@ -20,8 +20,10 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
+    data = request.get_json()
+    prompt = data.get("prompt")
     response = client.models.generate_content(
-        model="gemini-2.5-flash", contents="Explain how AI works in a few words"
+        model="gemini-2.5-flash", contents=prompt
     )
     return jsonify({"response": response.candidates[0].content})
 
