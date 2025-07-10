@@ -20,12 +20,19 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    data = request.get_json()
-    prompt = data.get("prompt")
-    response = client.models.generate_content(
-        model="gemini-2.5-flash", contents=prompt
-    )
-    return jsonify({"response": response})
+    try:
+        data = request.get_json()
+        prompt = data.get("prompt")
+        
+        if not prompt:
+            return jsonify({"error": "No prompt provided"}), 400
+        
+        response = client.models.generate_content(
+            model="gemini-2.0-flash-exp", contents=prompt
+        )
+        return jsonify({"response": response.text})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)
